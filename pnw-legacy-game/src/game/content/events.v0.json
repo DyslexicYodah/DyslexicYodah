@@ -1,0 +1,527 @@
+[
+  {
+    "id": "salmon_run",
+    "title": "The Great Run",
+    "seasonTags": ["Summer", "Fall"],
+    "weight": 10,
+    "conditions": {},
+    "text": "The river turns silver with salmon. The fish are so thick you could nearly walk across. Every hand is needed.",
+    "choices": [
+      {
+        "label": "Send every available adult to the river.",
+        "effects": { "resources": { "foodFresh": 14 }, "skills": { "fishing": 1 } },
+        "followupText": "The haul is enormous. Baskets overflow with fish. The people work through the night."
+      },
+      {
+        "label": "Fish steadily while others continue regular duties.",
+        "effects": { "resources": { "foodFresh": 7 } },
+        "followupText": "A good catch, taken without exhausting the community."
+      },
+      {
+        "label": "Hold a ceremony of gratitude at the river's edge.",
+        "effects": { "resources": { "foodFresh": 5 }, "social": { "spirit": 12 } },
+        "followupText": "The ritual honors the river. Spirit rises. The fish seem plentiful for seasons to come."
+      }
+    ]
+  },
+  {
+    "id": "cold_snap",
+    "title": "Unexpected Cold",
+    "seasonTags": ["Fall", "Winter"],
+    "weight": 8,
+    "conditions": {},
+    "text": "A bitter wind sweeps down from the mountains early. Ice forms on the river's edge. This cold came before anyone expected it.",
+    "choices": [
+      {
+        "label": "Drop everything and gather firewood.",
+        "effects": { "resources": { "firewood": 10 }, "social": { "morale": -5 } },
+        "followupText": "The extra work strains the community, but the woodpiles grow tall."
+      },
+      {
+        "label": "Share what firewood exists, rationing carefully.",
+        "effects": { "resources": { "firewood": -4 }, "social": { "morale": 8 } },
+        "followupText": "Huddled together, the people keep each other warm. Trust deepens."
+      }
+    ]
+  },
+  {
+    "id": "stranger_arrives",
+    "title": "A Lone Traveler",
+    "seasonTags": ["Spring", "Summer", "Fall"],
+    "weight": 6,
+    "conditions": {},
+    "text": "A lone figure appears at the edge of camp — weathered, carrying little. They speak a tongue only some of your people can follow. Their eyes are wary but not hostile.",
+    "choices": [
+      {
+        "label": "Welcome them, share food, and learn what you can.",
+        "effects": { "resources": { "foodFresh": -3 }, "social": { "morale": 6, "spirit": 4 }, "flags": { "metOutsider": true } },
+        "followupText": "The stranger shares knowledge of trails to the south and a good fishing spot two days walk. A small gift for a small meal."
+      },
+      {
+        "label": "Offer water but keep your distance until they move on.",
+        "effects": { "social": { "morale": 2 } },
+        "followupText": "They rest and leave at dawn. No harm done. No bond made."
+      },
+      {
+        "label": "Invite them to stay and join the community.",
+        "effects": { "population": {}, "resources": { "foodFresh": -2 }, "social": { "morale": 10 } },
+        "followupText": "They stay. The community grows by one — a skilled hand who learns the local ways quickly."
+      }
+    ]
+  },
+  {
+    "id": "spring_flood",
+    "title": "The River Rises",
+    "seasonTags": ["Spring"],
+    "weight": 7,
+    "conditions": {},
+    "text": "Snowmelt swells the river beyond its banks. Low-lying storage and paths are threatened. The water rises quickly.",
+    "choices": [
+      {
+        "label": "Move stored food to higher ground immediately.",
+        "effects": { "social": { "morale": -4 } },
+        "followupText": "Exhausting work, but the stores are saved. The river claims only mud."
+      },
+      {
+        "label": "Build a quick earthen berm to redirect water.",
+        "effects": { "resources": { "tools": -1 }, "social": { "morale": 8 } },
+        "followupText": "The berm holds. People cheer as the water turns aside. The tools wear down, but the effort unites."
+      },
+      {
+        "label": "Wait — the river has flooded before and always receded.",
+        "effects": { "resources": { "foodStored": -6 }, "social": { "morale": -8 } },
+        "followupText": "The water reaches the storage pits. Several baskets of food are lost. The mood is sour."
+      }
+    ]
+  },
+  {
+    "id": "illness_spreads",
+    "title": "A Sickness Moves Through Camp",
+    "seasonTags": ["Spring", "Winter"],
+    "weight": 5,
+    "conditions": {},
+    "text": "First one adult, then three more — a fever that leaves people weak and shivering for days. The elders recognize it as a seasonal illness, dangerous if untreated.",
+    "choices": [
+      {
+        "label": "Rest the sick, have elders tend them with herbs.",
+        "effects": { "resources": { "foodFresh": -4 }, "social": { "spirit": 8, "morale": 5 } },
+        "followupText": "Recovery is slow but full. The healers' skill is renewed. The sick remember who tended them."
+      },
+      {
+        "label": "Quarantine the ill to protect the rest.",
+        "effects": { "social": { "morale": -10, "spirit": -5 } },
+        "followupText": "The isolation works — sickness does not spread. But those quarantined feel abandoned."
+      },
+      {
+        "label": "Hold a healing ceremony for strength.",
+        "effects": { "social": { "spirit": 15 }, "resources": { "foodFresh": -2 } },
+        "followupText": "The ceremony lifts spirits. Some of the sick seem to recover faster than expected."
+      }
+    ]
+  },
+  {
+    "id": "bumper_berry_harvest",
+    "title": "Berries Beyond Count",
+    "seasonTags": ["Summer"],
+    "weight": 9,
+    "conditions": {},
+    "text": "The hillsides are purple and red with ripe berries. More than the people have seen in years. The children are already eating.",
+    "choices": [
+      {
+        "label": "Gather as much as possible — fill every basket.",
+        "effects": { "resources": { "foodFresh": 10 } },
+        "followupText": "Baskets overflow. The people will eat well and have some to dry."
+      },
+      {
+        "label": "Gather plenty, but also teach the children the proper way.",
+        "effects": { "resources": { "foodFresh": 7 }, "social": { "morale": 8 } },
+        "followupText": "A slower harvest, but the children learn which plants to pick and which to leave. A good day."
+      }
+    ]
+  },
+  {
+    "id": "tool_wear",
+    "title": "The Tools Give Out",
+    "seasonTags": ["Spring", "Summer", "Fall", "Winter"],
+    "weight": 6,
+    "conditions": { "minResource": { "tools": 1 } },
+    "text": "Blades chip. Handles split. The season's work has worn the community's tools down past usefulness. Something must be done.",
+    "choices": [
+      {
+        "label": "Spend time and firewood crafting new tools.",
+        "effects": { "resources": { "tools": 4, "firewood": -3 } },
+        "followupText": "New blades, scrapers, and handles. The work goes slowly at first, then with pride."
+      },
+      {
+        "label": "Trade some stored food for tools from a passing group.",
+        "effects": { "resources": { "tools": 3, "foodStored": -5 }, "social": { "morale": 4 } },
+        "followupText": "A fair trade. The strangers seem pleased. A small alliance forms."
+      },
+      {
+        "label": "Manage with what you have — improvise.",
+        "effects": { "resources": { "tools": -1 } },
+        "followupText": "The people make do. But cracked tools slow everything down."
+      }
+    ]
+  },
+  {
+    "id": "bear_encounter",
+    "title": "The Great Bear",
+    "seasonTags": ["Summer", "Fall"],
+    "weight": 5,
+    "conditions": {},
+    "text": "A large brown bear has been raiding drying racks and scattering food caches. It moves boldly, showing no fear. The hunters debate what to do.",
+    "choices": [
+      {
+        "label": "Drive it off with fire and noise.",
+        "effects": { "social": { "morale": 5 } },
+        "followupText": "The bear retreats to the forest. The people feel capable. It may return, but not tonight."
+      },
+      {
+        "label": "Hunt and kill the bear.",
+        "effects": { "resources": { "foodFresh": 8, "tools": -1 }, "skills": { "hunting": 1 }, "social": { "morale": 12 } },
+        "followupText": "A dangerous but successful hunt. The meat feeds many. The hunters gain respect."
+      },
+      {
+        "label": "Relocate caches and avoid confrontation — the forest belongs to both.",
+        "effects": { "social": { "spirit": 8 } },
+        "followupText": "The elders approve. The people adapt. The bear is not seen again at camp."
+      }
+    ]
+  },
+  {
+    "id": "elder_knowledge",
+    "title": "The Elder Speaks",
+    "seasonTags": ["Spring", "Summer", "Fall", "Winter"],
+    "weight": 4,
+    "conditions": {},
+    "text": "The oldest elder calls a gathering. She says she has lived through enough winters to know something the young forget: the land speaks, if you learn to listen. She offers to teach.",
+    "choices": [
+      {
+        "label": "Have the young adults sit with her for several days.",
+        "effects": { "skills": { "fishing": 1, "hunting": 1 }, "social": { "spirit": 10 } },
+        "followupText": "The sessions are long and sometimes quiet. But knowledge passes. Skills sharpen."
+      },
+      {
+        "label": "Honor her with a meal and listen to her story.",
+        "effects": { "social": { "morale": 10, "spirit": 8 } },
+        "followupText": "Her story spans decades. The people sit in silence, then talk long into the night."
+      }
+    ]
+  },
+  {
+    "id": "drought_summer",
+    "title": "The Dry Summer",
+    "seasonTags": ["Summer"],
+    "weight": 6,
+    "conditions": {},
+    "text": "Weeks pass without rain. The river drops low. Fish grow scarce in the shallow water. Berries shrivel before ripening.",
+    "choices": [
+      {
+        "label": "Push harder on hunting to compensate.",
+        "effects": { "resources": { "foodFresh": 5 }, "skills": { "hunting": 1 }, "social": { "morale": -5 } },
+        "followupText": "The hunters range farther and work harder. Food is found, but the people are tired."
+      },
+      {
+        "label": "Ration and reduce consumption this season.",
+        "effects": { "resources": { "foodStored": 4 }, "social": { "morale": -8 } },
+        "followupText": "The people go a little hungry, but the stores grow. A hard discipline."
+      },
+      {
+        "label": "Hold a rain ceremony and trust in the turning of seasons.",
+        "effects": { "social": { "spirit": 15, "morale": 5 } },
+        "followupText": "No rain comes from the ceremony, but the people's hearts are steadied. They endure together."
+      }
+    ]
+  },
+  {
+    "id": "rich_fishing_spot",
+    "title": "Hidden Waters",
+    "seasonTags": ["Spring", "Summer"],
+    "weight": 5,
+    "conditions": {},
+    "text": "A child following a deer trail stumbles onto a hidden lake, thick with fish. She runs back breathless to tell the adults.",
+    "choices": [
+      {
+        "label": "Send fishing crews immediately.",
+        "effects": { "resources": { "foodFresh": 12 }, "skills": { "fishing": 1 }, "flags": { "discoveredLake": true } },
+        "followupText": "The lake yields an extraordinary haul. The child who found it is celebrated."
+      },
+      {
+        "label": "Mark the location carefully and return next season.",
+        "effects": { "social": { "spirit": 5 }, "flags": { "discoveredLake": true } },
+        "followupText": "Patience. The location is recorded. This will feed the people for seasons to come."
+      }
+    ]
+  },
+  {
+    "id": "conflict_neighbor",
+    "title": "Territorial Tension",
+    "seasonTags": ["Summer", "Fall"],
+    "weight": 4,
+    "conditions": { "notFlag": "peacePact" },
+    "text": "A group from the river's other side has been fishing the same pools. No words have been exchanged, but there are hard looks. A confrontation may come.",
+    "choices": [
+      {
+        "label": "Approach them and propose shared fishing times.",
+        "effects": { "social": { "morale": 8, "spirit": 5 }, "flags": { "peacePact": true } },
+        "followupText": "After tense negotiation, an agreement is reached. The river is large enough. Trust begins."
+      },
+      {
+        "label": "Mark your boundaries firmly and hold them.",
+        "effects": { "social": { "morale": -5 } },
+        "followupText": "The other group withdraws, but the tension lingers. No one feels fully safe."
+      },
+      {
+        "label": "Give them a gift of food and open a conversation.",
+        "effects": { "resources": { "foodFresh": -5 }, "social": { "morale": 10, "spirit": 8 }, "flags": { "peacePact": true } },
+        "followupText": "Generosity disarms them. They are surprised. A fragile friendship takes its first breath."
+      }
+    ]
+  },
+  {
+    "id": "child_prodigy",
+    "title": "The Gifted Child",
+    "seasonTags": ["Spring", "Summer"],
+    "weight": 3,
+    "conditions": {},
+    "text": "One of the older children shows unusual skill — she has been quietly imitating the fishers, and her catches from the shallows outshine some adults.",
+    "choices": [
+      {
+        "label": "Formally begin her apprenticeship with the best fisher.",
+        "effects": { "skills": { "fishing": 1 }, "social": { "morale": 6 } },
+        "followupText": "She takes to it immediately. The community watches with pride."
+      },
+      {
+        "label": "Let her develop naturally — no need to rush.",
+        "effects": { "social": { "spirit": 5 } },
+        "followupText": "She continues on her own path. There is wisdom in not forcing the gift."
+      }
+    ]
+  },
+  {
+    "id": "winter_omen",
+    "title": "The Dark Bird",
+    "seasonTags": ["Winter"],
+    "weight": 5,
+    "conditions": {},
+    "text": "A large black bird has perched on the lodge roof for three days and will not leave. The elders disagree about what it means. Unease settles on the camp.",
+    "choices": [
+      {
+        "label": "Hold a ceremony to acknowledge whatever is coming.",
+        "effects": { "social": { "spirit": 12, "morale": 5 } },
+        "followupText": "The bird leaves at dawn after the ceremony. The people feel watched over, not threatened."
+      },
+      {
+        "label": "Shoo it away and focus on practical winter work.",
+        "effects": { "resources": { "firewood": 4 }, "social": { "spirit": -6 } },
+        "followupText": "The bird goes. The elders are quiet. Extra firewood is gathered. Practical minds prevail."
+      }
+    ]
+  },
+  {
+    "id": "good_harvest_fall",
+    "title": "Abundance of Fall",
+    "seasonTags": ["Fall"],
+    "weight": 8,
+    "conditions": {},
+    "text": "The cedars, oaks, and berry bushes have given more than usual. Roots are plentiful. It is a rare season of quiet abundance.",
+    "choices": [
+      {
+        "label": "Gather and preserve as much as possible.",
+        "effects": { "resources": { "foodFresh": 8, "foodStored": 5 } },
+        "followupText": "The stores overflow. Winter looks far less frightening."
+      },
+      {
+        "label": "Hold a feast and share the surplus with morale in mind.",
+        "effects": { "resources": { "foodFresh": 4 }, "social": { "morale": 18, "spirit": 10 } },
+        "followupText": "A night of dancing, story, and full bellies. The people remember this for seasons."
+      }
+    ]
+  },
+  {
+    "id": "winter_fire",
+    "title": "The Long Night",
+    "seasonTags": ["Winter"],
+    "weight": 7,
+    "conditions": {},
+    "text": "The coldest night anyone can remember. Children press close. Elders shiver. The fire must be kept alive through the dark hours.",
+    "choices": [
+      {
+        "label": "Burn extra firewood through the night.",
+        "effects": { "resources": { "firewood": -6 }, "social": { "morale": 10 } },
+        "followupText": "All survive. The warmth is remembered. Firewood runs lower, but spirits hold."
+      },
+      {
+        "label": "Huddle together with minimal fire, sharing body heat.",
+        "effects": { "social": { "morale": -5, "spirit": 5 } },
+        "followupText": "A long, hard night. But the people discover how much they trust each other."
+      }
+    ]
+  },
+  {
+    "id": "new_spring",
+    "title": "First Thaw",
+    "seasonTags": ["Spring"],
+    "weight": 10,
+    "conditions": {},
+    "text": "The ice breaks. The birds return first, then the insects, then the first green shoots. After the winter, the world smells alive again. The children run into the meadow.",
+    "choices": [
+      {
+        "label": "Begin planting and renewal tasks immediately.",
+        "effects": { "resources": { "foodFresh": 5 }, "social": { "morale": 8 } },
+        "followupText": "The work feels light. Spring brings energy that winter stole."
+      },
+      {
+        "label": "Rest and celebrate survival before the labor begins.",
+        "effects": { "social": { "morale": 15, "spirit": 12 } },
+        "followupText": "A day of play and rest. The people needed this. They return to work with full hearts."
+      }
+    ]
+  },
+  {
+    "id": "tool_innovation",
+    "title": "A Better Way",
+    "seasonTags": ["Spring", "Summer"],
+    "weight": 4,
+    "conditions": { "minSkill": { "fishing": 3 } },
+    "text": "An experienced fisher has been experimenting with a new design — a weir made of woven branches that channels fish into pools. It worked. She shows the community.",
+    "choices": [
+      {
+        "label": "Build the weir and adopt the technique.",
+        "effects": { "resources": { "tools": -2, "firewood": -2 }, "skills": { "fishing": 2 }, "flags": { "hasWeir": true } },
+        "followupText": "The weir works beautifully. Fish yields improve significantly. An innovation remembered."
+      },
+      {
+        "label": "Observe and let her refine it further before committing.",
+        "effects": { "skills": { "fishing": 1 } },
+        "followupText": "She continues her experiments. Progress is slower, but the design improves."
+      }
+    ]
+  },
+  {
+    "id": "morale_crisis",
+    "title": "Discontent",
+    "seasonTags": ["Spring", "Summer", "Fall", "Winter"],
+    "weight": 4,
+    "conditions": {},
+    "text": "Voices rise in camp. Some feel the labor is unfair — that some work harder while others take more. The community is fractured by a quiet argument.",
+    "choices": [
+      {
+        "label": "Hold a council — let everyone speak.",
+        "effects": { "social": { "morale": 12, "spirit": 6 } },
+        "followupText": "It is a long, difficult evening. But grievances aired are grievances eased. People feel heard."
+      },
+      {
+        "label": "Acknowledge the issue and adjust duties publicly.",
+        "effects": { "social": { "morale": 8 } },
+        "followupText": "The adjustment isn't perfect, but it shows leadership. Tensions cool."
+      },
+      {
+        "label": "A hard season demands hard choices — maintain current course.",
+        "effects": { "social": { "morale": -12 } },
+        "followupText": "The discontent festers. People work but resent it. Something will need to give."
+      }
+    ]
+  },
+  {
+    "id": "cedar_stand",
+    "title": "The Ancient Cedar Grove",
+    "seasonTags": ["Spring", "Summer"],
+    "weight": 3,
+    "conditions": { "notFlag": "cedarFound" },
+    "text": "Scouts return from the hills with news: a grove of enormous red cedars, their trunks wider than three people with arms outstretched. The wood is extraordinary.",
+    "choices": [
+      {
+        "label": "Harvest timber carefully for building.",
+        "effects": { "resources": { "firewood": 12, "tools": 2 }, "flags": { "cedarFound": true } },
+        "followupText": "The cedar is remarkable. It will build lodges and tools for years."
+      },
+      {
+        "label": "Mark the grove as sacred — do not harvest it.",
+        "effects": { "social": { "spirit": 20 }, "flags": { "cedarFound": true, "cedarGroveProtected": true } },
+        "followupText": "The elders weep with gratitude. The grove becomes a place of ceremony. Its roots hold the community."
+      }
+    ]
+  },
+  {
+    "id": "fishing_windfall",
+    "title": "The Silver Morning",
+    "seasonTags": ["Spring", "Summer", "Fall"],
+    "weight": 6,
+    "conditions": {},
+    "text": "An early morning mist parts to reveal the river thick with fish — more than anyone has seen in a single day. The window may not last long.",
+    "choices": [
+      {
+        "label": "Drop everything and fish all morning.",
+        "effects": { "resources": { "foodFresh": 16 }, "social": { "morale": 8 } },
+        "followupText": "An astonishing haul. The people will eat well for weeks."
+      },
+      {
+        "label": "Fish efficiently and return to regular duties by midday.",
+        "effects": { "resources": { "foodFresh": 9 } },
+        "followupText": "A good morning's work. The rest of the day proceeds normally."
+      }
+    ]
+  },
+  {
+    "id": "winter_solstice",
+    "title": "The Longest Night",
+    "seasonTags": ["Winter"],
+    "weight": 6,
+    "conditions": {},
+    "text": "The sun sets early. By nightfall, the darkness is complete and total. The elders say this night is a threshold: what is spoken into the dark shapes the year to come.",
+    "choices": [
+      {
+        "label": "Hold an all-night vigil of song and story.",
+        "effects": { "social": { "morale": 15, "spirit": 20 } },
+        "followupText": "By dawn, the people are tired but transformed. Something has been passed down."
+      },
+      {
+        "label": "Sleep early and rise refreshed for the work ahead.",
+        "effects": { "social": { "morale": 5 } },
+        "followupText": "Practical rest. The elders say nothing. The night passes quietly."
+      }
+    ]
+  },
+  {
+    "id": "injury",
+    "title": "A Hunter Falls",
+    "seasonTags": ["Spring", "Summer", "Fall", "Winter"],
+    "weight": 5,
+    "conditions": {},
+    "text": "A promising hunter misjudged a hillside and twisted his leg badly. He will not be mobile for the rest of the season. The community must adapt.",
+    "choices": [
+      {
+        "label": "Redistribute his duties and tend his recovery fully.",
+        "effects": { "social": { "morale": 5 }, "resources": { "foodFresh": -3 } },
+        "followupText": "His recovery is complete. The community's care leaves no one forgotten."
+      },
+      {
+        "label": "Push others harder to cover the shortfall.",
+        "effects": { "social": { "morale": -8 }, "resources": { "foodFresh": 2 } },
+        "followupText": "The work gets done, but the people are exhausted and resentful."
+      }
+    ]
+  },
+  {
+    "id": "sacred_site",
+    "title": "Stones of the Ancestors",
+    "seasonTags": ["Spring", "Fall"],
+    "weight": 3,
+    "conditions": { "notFlag": "ancestorSiteFound" },
+    "text": "Workers clearing a hillside uncover an arrangement of stones unlike any natural formation. The elders grow quiet when they see it.",
+    "choices": [
+      {
+        "label": "Restore and protect the site.",
+        "effects": { "social": { "spirit": 18, "morale": 8 }, "flags": { "ancestorSiteFound": true } },
+        "followupText": "The stones are carefully reset. The elders hold ceremony there that night. The land remembers."
+      },
+      {
+        "label": "Record it, but continue the clearing work.",
+        "effects": { "resources": { "firewood": 5 }, "social": { "spirit": -10 }, "flags": { "ancestorSiteFound": true } },
+        "followupText": "Work continues. The elders say little. Some things cannot be undone."
+      }
+    ]
+  }
+]

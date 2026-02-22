@@ -1,0 +1,56 @@
+[
+  {
+    "id": "fire_circle",
+    "name": "Fire Circle",
+    "tier": 1,
+    "cost": {},
+    "effects": { "moraleBonus": 3 },
+    "description": "A communal hearth where the people gather. Boosts morale each season.",
+    "unlockConditions": null
+  },
+  {
+    "id": "drying_rack",
+    "name": "Drying Rack",
+    "tier": 1,
+    "cost": { "tools": 1, "firewood": 3 },
+    "effects": { "dryingCap": 8, "preservationRate": 0.2 },
+    "description": "Simple racks for air-drying fish and meat. Increases food preservation.",
+    "unlockConditions": null
+  },
+  {
+    "id": "smokehouse",
+    "name": "Smokehouse",
+    "tier": 2,
+    "cost": { "tools": 2, "firewood": 6, "foodFresh": 0 },
+    "effects": { "preservationRate": 0.4, "dryingCap": 15 },
+    "description": "A sealed structure for smoking meat and fish. Major food preservation.",
+    "unlockConditions": { "hasBuilding": "drying_rack" }
+  },
+  {
+    "id": "storage_pit",
+    "name": "Storage Pit",
+    "tier": 1,
+    "cost": { "tools": 1, "firewood": 2 },
+    "effects": { "storageBonus": 30, "preservationRate": 0.1 },
+    "description": "A cool underground cache. Extends stored food shelf life.",
+    "unlockConditions": null
+  },
+  {
+    "id": "watch_post",
+    "name": "Watch Post",
+    "tier": 2,
+    "cost": { "tools": 3, "firewood": 4 },
+    "effects": { "huntingBonus": 2, "moraleBonus": 2 },
+    "description": "A raised platform giving hunters scouting advantage. Improves hunting yields.",
+    "unlockConditions": { "minAdults": 6 }
+  },
+  {
+    "id": "plank_lodge",
+    "name": "Plank Lodge",
+    "tier": 2,
+    "cost": { "tools": 4, "firewood": 8 },
+    "effects": { "shelterBonus": 1, "moraleBonus": 5 },
+    "description": "A large cedar-plank dwelling for many families. Reduces winter mortality.",
+    "unlockConditions": { "minAdults": 8 }
+  }
+]

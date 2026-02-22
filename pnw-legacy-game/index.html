@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PNW Legacy</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- TOP BAR -->
+  <header id="top-bar">
+    <div id="top-left">
+      <span id="label-year">Year <strong id="display-year">1</strong></span>
+      <span id="label-season" class="season-badge">Spring</span>
+    </div>
+    <div id="top-center">
+      <h1>PNW Legacy</h1>
+    </div>
+    <div id="top-right">
+      <button id="btn-new">New Game</button>
+      <button id="btn-save">Save</button>
+      <button id="btn-load">Load</button>
+      <button id="btn-advance">Advance Season ▶</button>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <main id="main-layout">
+
+    <!-- LEFT PANEL: Village Stats -->
+    <aside id="panel-left">
+      <section class="stat-group">
+        <h2>People</h2>
+        <div class="stat-row"><span>Children</span><span id="stat-children">0</span></div>
+        <div class="stat-row"><span>Adults</span><span id="stat-adults">0</span></div>
+        <div class="stat-row"><span>Elders</span><span id="stat-elders">0</span></div>
+        <div class="stat-row total"><span>Total</span><span id="stat-total">0</span></div>
+      </section>
+
+      <section class="stat-group">
+        <h2>Resources</h2>
+        <div class="stat-row"><span>🐟 Fresh Food</span><span id="stat-foodFresh">0</span></div>
+        <div class="stat-row"><span>🏺 Stored Food</span><span id="stat-foodStored">0</span></div>
+        <div class="stat-row"><span>🪵 Firewood</span><span id="stat-firewood">0</span></div>
+        <div class="stat-row"><span>🪓 Tools</span><span id="stat-tools">0</span></div>
+      </section>
+
+      <section class="stat-group">
+        <h2>Community</h2>
+        <div class="stat-row"><span>❤️ Morale</span><span id="stat-morale">0</span></div>
+        <div class="stat-row"><span>🌀 Spirit</span><span id="stat-spirit">0</span></div>
+      </section>
+
+      <section class="stat-group">
+        <h2>Skills</h2>
+        <div class="stat-row"><span>🎣 Fishing</span><span id="stat-fishing">0</span></div>
+        <div class="stat-row"><span>🏹 Hunting</span><span id="stat-hunting">0</span></div>
+      </section>
+
+      <section class="stat-group" id="buildings-section">
+        <h2>Buildings</h2>
+        <div id="buildings-list"><em>None yet</em></div>
+      </section>
+    </aside>
+
+    <!-- CENTER PANEL: Narrative Log -->
+    <section id="panel-center">
+      <div id="hint-box">
+        <strong>How to play:</strong> Each season, assign your adults to tasks on the right. Then click <em>Advance Season</em> to see what happens. Survive the winter!
+      </div>
+      <div id="event-box" class="hidden">
+        <h3 id="event-title"></h3>
+        <div id="event-text"></div>
+        <div id="event-choices"></div>
+      </div>
+      <div id="log-box">
+        <h2>Chronicle</h2>
+        <div id="log-entries"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Actions & Allocations -->
+    <aside id="panel-right">
+      <section class="action-group">
+        <h2>Labor Allocation</h2>
+        <p class="subtext">Adults available: <strong id="adults-available">0</strong></p>
+        <div id="allocation-warning" class="warning hidden">You've allocated more adults than available!</div>
+
+        <div class="alloc-row">
+          <label for="alloc-fishing">🎣 Fishing</label>
+          <input type="number" id="alloc-fishing" min="0" value="0" />
+        </div>
+        <div class="alloc-row">
+          <label for="alloc-hunting">🏹 Hunting</label>
+          <input type="number" id="alloc-hunting" min="0" value="0" />
+        </div>
+        <div class="alloc-row">
+          <label for="alloc-gather">🌿 Gathering</label>
+          <input type="number" id="alloc-gather" min="0" value="0" />
+        </div>
+        <div class="alloc-row">
+          <label for="alloc-build">🔨 Building</label>
+          <input type="number" id="alloc-build" min="0" value="0" />
+        </div>
+        <div class="alloc-row">
+          <label for="alloc-firewood">🪵 Firewood</label>
+          <input type="number" id="alloc-firewood" min="0" value="0" />
+        </div>
+        <div class="alloc-row">
+          <label for="alloc-ceremony">🌀 Ceremony</label>
+          <input type="number" id="alloc-ceremony" min="0" value="0" />
+        </div>
+
+        <div class="alloc-total">Allocated: <strong id="alloc-total-count">0</strong></div>
+      </section>
+
+      <section class="action-group" id="build-section">
+        <h2>Construct Building</h2>
+        <select id="build-select">
+          <option value="">— choose —</option>
+        </select>
+        <div id="build-cost-preview" class="cost-preview"></div>
+        <button id="btn-build">Build</button>
+      </section>
+    </aside>
+  </main>
+
+  <!-- AUDIO CONTROLS (fixed bottom) -->
+  <footer id="audio-bar">
+    <button id="btn-mute">🔊 Mute</button>
+    <label for="volume-slider">Volume</label>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.4" />
+    <span id="now-playing">♪ Spring Ambience</span>
+  </footer>
+
+  <!-- MODALS -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-box">
+      <h2 id="modal-title"></h2>
+      <p id="modal-body"></p>
+      <button id="modal-ok">OK</button>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

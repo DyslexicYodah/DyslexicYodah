@@ -1,0 +1,42 @@
+{
+  "Spring": {
+    "label": "Spring",
+    "cssClass": "spring",
+    "description": "The ice breaks. Rivers swell with snowmelt. Salmon begin their run. Time to plant, gather, and prepare.",
+    "modifiers": {
+      "fishingMultiplier": 1.2,
+      "huntingMultiplier": 1.0,
+      "gatherMultiplier": 1.1
+    }
+  },
+  "Summer": {
+    "label": "Summer",
+    "cssClass": "summer",
+    "description": "Long days. Berries ripen. The rivers run full and clear. The most productive season.",
+    "modifiers": {
+      "fishingMultiplier": 1.4,
+      "huntingMultiplier": 1.2,
+      "gatherMultiplier": 1.4
+    }
+  },
+  "Fall": {
+    "label": "Fall",
+    "cssClass": "fall",
+    "description": "The last great harvest. Salmon run again. Store everything you can before the cold comes.",
+    "modifiers": {
+      "fishingMultiplier": 1.3,
+      "huntingMultiplier": 1.1,
+      "gatherMultiplier": 1.0
+    }
+  },
+  "Winter": {
+    "label": "Winter",
+    "cssClass": "winter",
+    "description": "The cold tests everything. Food and firewood must last. Keep the elders and children warm.",
+    "modifiers": {
+      "fishingMultiplier": 0.4,
+      "huntingMultiplier": 0.6,
+      "gatherMultiplier": 0.2
+    }
+  }
+}
