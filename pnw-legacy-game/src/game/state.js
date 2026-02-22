@@ -44,6 +44,8 @@ export function newGame(seed = Date.now() & 0xffffffff) {
 
     flags: {},       // arbitrary boolean/string flags set by events
 
+    recentEvents: [],  // last 4 event IDs — used to prevent back-to-back repeats
+
     log: [],         // chronicle entries { label, text, type }
 
     pendingEvent: null,   // event object waiting for player choice
@@ -85,6 +87,13 @@ export function applyEffects(state, effects) {
     for (const [k, v] of Object.entries(effects.skills)) {
       if (k in state.skills) {
         state.skills[k] = clamp(state.skills[k] + v, 1, 10);
+      }
+    }
+  }
+  if (effects.population) {
+    for (const [k, v] of Object.entries(effects.population)) {
+      if (k in state.population) {
+        state.population[k] = Math.max(0, state.population[k] + v);
       }
     }
   }

@@ -376,6 +376,85 @@ button:hover { background: var(--border); border-color: var(--accent); }
 /* ── MOBILE TABS (hidden on desktop) ── */
 #mobile-tabs { display: none; }
 
+/* ── SEASON DESCRIPTION (item 7) ── */
+.season-desc {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+  padding: 0.5rem 0.6rem;
+  border-left: 3px solid var(--border);
+  margin-bottom: 0.2rem;
+  line-height: 1.5;
+}
+
+/* ── SEASON SUMMARY LOG ENTRY (item 8) ── */
+.log-entry.log-summary {
+  background: var(--surface2);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.7rem;
+}
+.season-deltas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+}
+.sdelta {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: bold;
+}
+.sdelta.pos  { color: var(--accent2); }
+.sdelta.neg  { color: var(--danger); }
+.sdelta.zero { color: var(--text-dim); font-weight: normal; }
+
+/* ── SKILL LABEL BANDS (item 12) ── */
+.skill-val           { font-weight: bold; }
+.skill-novice        { color: var(--text-dim); }
+.skill-apprentice    { color: var(--text); }
+.skill-skilled       { color: var(--accent); }
+.skill-expert        { color: var(--accent2); }
+.skill-master        { color: #e8d46a; text-shadow: 0 0 6px rgba(232,212,106,0.35); }
+
+/* ── SKILL TOOLTIP (item 13) ── */
+.skill-tip {
+  display: inline-block;
+  position: relative;
+  cursor: help;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  margin-left: 0.25rem;
+  opacity: 0.7;
+  vertical-align: middle;
+  font-family: var(--font-ui);
+}
+.skill-tip:hover { opacity: 1; }
+.skill-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%);
+  background: #111108;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.78rem;
+  font-family: var(--font-ui);
+  color: var(--text);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 50;
+  min-width: 240px;
+  white-space: normal;
+  line-height: 1.4;
+}
+.skill-tip:hover::after { opacity: 1; }
+
 /* ── UTILS ── */
 .hidden { display: none !important; }
 

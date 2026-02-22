@@ -63,8 +63,20 @@
 
       <section class="stat-group">
         <h2>Skills</h2>
-        <div class="stat-row"><span>🎣 Fishing</span><span id="stat-fishing">0</span></div>
-        <div class="stat-row"><span>🏹 Hunting</span><span id="stat-hunting">0</span></div>
+        <div class="stat-row">
+          <span>
+            🎣 Fishing
+            <span class="skill-tip" data-tip="Per fisher at skill level — Novice: ~1.5 food · Skilled: ~2.7 food · Master: ~4.2 food (before season modifier)">ⓘ</span>
+          </span>
+          <span id="stat-fishing" class="skill-val">0</span>
+        </div>
+        <div class="stat-row">
+          <span>
+            🏹 Hunting
+            <span class="skill-tip" data-tip="Per hunter at skill level — Novice: ~1.3 food · Skilled: ~2.25 food · Master: ~3.5 food (before season modifier)">ⓘ</span>
+          </span>
+          <span id="stat-hunting" class="skill-val">0</span>
+        </div>
       </section>
 
       <section class="stat-group" id="buildings-section">
@@ -75,6 +87,7 @@
 
     <!-- CENTER PANEL: Narrative Log -->
     <section id="panel-center">
+      <div id="season-desc" class="season-desc hidden"></div>
       <div id="hint-box">
         <strong>How to play:</strong> Each season, assign your adults to tasks on the right. Then click <em>Advance Season</em> to see what happens. Survive the winter!
       </div>
@@ -98,27 +111,27 @@
 
         <div class="alloc-row">
           <label for="alloc-fishing">🎣 Fishing</label>
-          <input type="number" id="alloc-fishing" min="0" value="0" />
+          <input type="number" id="alloc-fishing" min="0" step="1" value="0" />
         </div>
         <div class="alloc-row">
           <label for="alloc-hunting">🏹 Hunting</label>
-          <input type="number" id="alloc-hunting" min="0" value="0" />
+          <input type="number" id="alloc-hunting" min="0" step="1" value="0" />
         </div>
         <div class="alloc-row">
           <label for="alloc-gather">🌿 Gathering</label>
-          <input type="number" id="alloc-gather" min="0" value="0" />
+          <input type="number" id="alloc-gather" min="0" step="1" value="0" />
         </div>
         <div class="alloc-row">
-          <label for="alloc-build">🔨 Building</label>
-          <input type="number" id="alloc-build" min="0" value="0" />
+          <label for="alloc-build">🪚 Crafting</label>
+          <input type="number" id="alloc-build" min="0" step="1" value="0" />
         </div>
         <div class="alloc-row">
           <label for="alloc-firewood">🪵 Firewood</label>
-          <input type="number" id="alloc-firewood" min="0" value="0" />
+          <input type="number" id="alloc-firewood" min="0" step="1" value="0" />
         </div>
         <div class="alloc-row">
           <label for="alloc-ceremony">🌀 Ceremony</label>
-          <input type="number" id="alloc-ceremony" min="0" value="0" />
+          <input type="number" id="alloc-ceremony" min="0" step="1" value="0" />
         </div>
 
         <div class="alloc-total">Allocated: <strong id="alloc-total-count">0</strong></div>

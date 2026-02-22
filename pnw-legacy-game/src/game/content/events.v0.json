@@ -64,7 +64,7 @@
       },
       {
         "label": "Invite them to stay and join the community.",
-        "effects": { "population": {}, "resources": { "foodFresh": -2 }, "social": { "morale": 10 } },
+        "effects": { "population": { "adults": 1 }, "resources": { "foodFresh": -2 }, "social": { "morale": 10 } },
         "followupText": "They stay. The community grows by one — a skilled hand who learns the local ways quickly."
       }
     ]

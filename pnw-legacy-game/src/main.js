@@ -35,11 +35,27 @@ function switchTab(targetId) {
 }
 
 function initMobileTabs() {
-  // Set initial active panel
   switchTab('panel-center');
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.target));
   });
+}
+
+// ── Skill label bands (item 12) ──
+function skillLabel(v) {
+  if (v >= 8) return 'Master';
+  if (v >= 6) return 'Expert';
+  if (v >= 4) return 'Skilled';
+  if (v >= 2) return 'Apprentice';
+  return 'Novice';
+}
+
+function skillClass(v) {
+  if (v >= 8) return 'skill-master';
+  if (v >= 6) return 'skill-expert';
+  if (v >= 4) return 'skill-skilled';
+  if (v >= 2) return 'skill-apprentice';
+  return 'skill-novice';
 }
 
 function showModal(title, body) {
@@ -55,10 +71,33 @@ function hideModal() {
 function addLog(text, type = 'normal') {
   const season = SEASONS[state.seasonIndex];
   const label  = `Year ${state.year} · ${season}`;
-  const entry  = { label, text, type };
-  state.log.unshift(entry);
+  state.log.unshift({ label, text, type });
   if (state.log.length > 60) state.log.pop();
   renderLog();
+}
+
+// Raw log entry with an explicit label (used for season summaries and milestones)
+function addRawLog(label, text, type = 'normal') {
+  state.log.unshift({ label, text, type });
+  if (state.log.length > 60) state.log.pop();
+}
+
+// ── Season summary (item 8) ──
+function addSeasonSummary(label, before, after) {
+  function sdelta(cur, prev, emoji) {
+    const d = cur - prev;
+    const cls  = d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero';
+    const sign = d > 0 ? '+' : '';
+    return `<span class="sdelta ${cls}">${emoji} ${sign}${d}</span>`;
+  }
+  const html = `<div class="season-deltas">`
+    + sdelta(after.foodFresh,  before.foodFresh,  '🐟')
+    + sdelta(after.foodStored, before.foodStored, '🏺')
+    + sdelta(after.firewood,   before.firewood,   '🪵')
+    + sdelta(after.tools,      before.tools,      '🪓')
+    + sdelta(after.people,     before.people,     '👥')
+    + `</div>`;
+  addRawLog(label, html, 'summary');
 }
 
 // ── Render ──
@@ -88,8 +127,14 @@ function renderStats() {
   $('stat-morale').textContent  = s.morale;
   $('stat-spirit').textContent  = s.spirit;
 
-  $('stat-fishing').textContent = sk.fishing.toFixed(1);
-  $('stat-hunting').textContent = sk.hunting.toFixed(1);
+  // Skill labels with colour class (items 12)
+  const fishEl = $('stat-fishing');
+  fishEl.textContent = skillLabel(sk.fishing);
+  fishEl.className   = `skill-val ${skillClass(sk.fishing)}`;
+
+  const huntEl = $('stat-hunting');
+  huntEl.textContent = skillLabel(sk.hunting);
+  huntEl.className   = `skill-val ${skillClass(sk.hunting)}`;
 
   $('adults-available').textContent = state.population.adults;
 }
@@ -133,6 +178,16 @@ function renderSeasonBadge() {
   const badge = $('label-season');
   badge.textContent = seasonName;
   badge.className   = `season-badge ${seasonName.toLowerCase()}`;
+
+  // Season description (item 7)
+  const seasonData = SEASONS_DATA[seasonName];
+  const descEl = $('season-desc');
+  if (seasonData && seasonData.description) {
+    descEl.textContent = seasonData.description;
+    descEl.classList.remove('hidden');
+  } else {
+    descEl.classList.add('hidden');
+  }
 }
 
 function renderAllocInfo() {
@@ -141,12 +196,19 @@ function renderAllocInfo() {
 
 function renderLog() {
   const container = $('log-entries');
-  container.innerHTML = state.log.slice(0, 30).map(e => `
-    <div class="log-entry ${e.type === 'danger' ? 'log-danger' : e.type === 'good' ? 'log-good' : ''}">
+  container.innerHTML = state.log.slice(0, 40).map(e => {
+    if (e.type === 'summary') {
+      return `<div class="log-entry log-summary">
+        <span class="log-label">${e.label} — Season End</span>
+        ${e.text}
+      </div>`;
+    }
+    const cls = e.type === 'danger' ? 'log-danger' : e.type === 'good' ? 'log-good' : '';
+    return `<div class="log-entry ${cls}">
       <span class="log-label">${e.label}</span>
       ${e.text}
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ── Allocation total watcher ──
@@ -200,7 +262,6 @@ function showEvent(ev) {
     choicesEl.appendChild(btn);
   });
 
-  // Disable advance while event is pending
   $('btn-advance').disabled = true;
 
   // On mobile, switch to the Chronicle panel so the event is visible
@@ -211,7 +272,6 @@ function handleChoice(ev, choiceIdx) {
   const choice   = ev.choices[choiceIdx];
   const followup = applyChoice(state, choice);
 
-  // Check for discovery stinger
   if (choice.effects && choice.effects.flags) {
     playStinger('discovery');
   }
@@ -225,24 +285,56 @@ function handleChoice(ev, choiceIdx) {
   renderAll();
 }
 
+// ── Year & population milestones (items 10, 11) ──
+const YEAR_MILESTONES = {
+  2:  'The people endure their first full turning of seasons. The land is no longer strange.',
+  5:  'Five years have passed. Children born here have never known another home.',
+  10: 'A decade of seasons. The elders tell stories of the early days — the first winter, the first great run.',
+  20: 'Twenty years. A generation has grown up knowing only this river, these hills, these people.',
+  30: 'Thirty years of seasons. The people\'s roots run deep as cedar.',
+  50: 'Half a century. The community\'s stories are longer than some memories.',
+};
+
+const POP_MILESTONES = {
+  20: 'The community numbers twenty souls. What began as a small band is becoming a true village.',
+  30: 'Thirty people share this land. The fire circle is crowded on cold nights.',
+  50: 'Fifty souls. A generation of growth. The people\'s name will be remembered.',
+};
+
+function checkMilestones() {
+  // Year milestones fire on the first season (Spring) of the milestone year
+  if (state.seasonIndex === 0 && YEAR_MILESTONES[state.year]) {
+    addLog(`✦ ${YEAR_MILESTONES[state.year]}`, 'good');
+  }
+  // Population milestones fire once (guarded by flag)
+  const pop = state.population.children + state.population.adults + state.population.elders;
+  for (const [threshold, text] of Object.entries(POP_MILESTONES)) {
+    const t = Number(threshold);
+    if (pop >= t && !state.flags[`_pop${t}`]) {
+      state.flags[`_pop${t}`] = true;
+      addLog(`✦ ${text}`, 'good');
+    }
+  }
+}
+
 // ── Season Advance ──
 async function advanceSeason() {
   if (!state || state.gameOver) return;
 
   const alloc = getAllocations();
 
-  // Warn if over-allocated
   if (totalAllocated(alloc) > state.population.adults) {
     showModal('Too Many Workers', 'You have allocated more adults than you have. Please adjust before advancing.');
     return;
   }
 
-  const seasonName   = SEASONS[state.seasonIndex];
-  const buildingFx   = computeBuildingEffects(state.buildings, BUILDINGS_DATA);
-  const seasonData   = SEASONS_DATA[seasonName] || { modifiers: {} };
+  const seasonName = SEASONS[state.seasonIndex];
+  const summaryLabel = `Year ${state.year} · ${seasonName}`;
 
-  // Apply season multipliers to allocations before economy resolution
-  const mod = seasonData.modifiers || {};
+  const buildingFx = computeBuildingEffects(state.buildings, BUILDINGS_DATA);
+  const seasonData = SEASONS_DATA[seasonName] || { modifiers: {} };
+  const mod        = seasonData.modifiers || {};
+
   const scaledAlloc = {
     ...alloc,
     fishing:  Math.round(alloc.fishing  * (mod.fishingMultiplier  || 1)),
@@ -251,6 +343,15 @@ async function advanceSeason() {
     firewood: alloc.firewood,
     ceremony: alloc.ceremony,
     build:    alloc.build,
+  };
+
+  // Snapshot before resolves (for season summary)
+  const before = {
+    foodFresh:  state.resources.foodFresh,
+    foodStored: state.resources.foodStored,
+    firewood:   state.resources.firewood,
+    tools:      state.resources.tools,
+    people:     state.population.children + state.population.adults + state.population.elders,
   };
 
   const econMsgs = resolveEconomy(state, scaledAlloc, buildingFx, rng);
@@ -262,12 +363,10 @@ async function advanceSeason() {
   const agingMsgs = resolveAging(state, rng);
   agingMsgs.forEach(m => addLog(m.text, m.type));
 
-  // Death stinger
   if (consumeMsgs.some(m => m.type === 'danger') || agingMsgs.some(m => m.type === 'danger')) {
     playStinger('death');
   }
 
-  // Winter survival check
   if (seasonName === 'Winter') {
     const winterMsgs = resolveWinterSurvival(state, buildingFx, rng);
     winterMsgs.forEach(m => {
@@ -276,9 +375,19 @@ async function advanceSeason() {
     });
   }
 
-  // Morale drift toward center
+  // Morale/spirit drift toward center
   state.social.morale = clamp(state.social.morale + (state.social.morale < 50 ? 1 : -1), 0, 100);
   state.social.spirit = clamp(state.social.spirit + (state.social.spirit < 40 ? 1 : -1), 0, 100);
+
+  // Season summary — insert before the individual messages so it appears at top (item 8)
+  const after = {
+    foodFresh:  state.resources.foodFresh,
+    foodStored: state.resources.foodStored,
+    firewood:   state.resources.firewood,
+    tools:      state.resources.tools,
+    people:     state.population.children + state.population.adults + state.population.elders,
+  };
+  addSeasonSummary(summaryLabel, before, after);
 
   // Advance time
   state.seasonIndex++;
@@ -287,10 +396,9 @@ async function advanceSeason() {
     state.year++;
   }
 
-  // Persist RNG state
   state.rngState = rng.getState();
 
-  // Check game over
+  // Game-over checks
   const total = state.population.children + state.population.adults + state.population.elders;
   if (total <= 0) {
     state.gameOver = true;
@@ -300,6 +408,9 @@ async function advanceSeason() {
     state.gameOver = true;
     state.gameOverReason = 'The community lost all hope and disbanded.';
   }
+
+  // Milestones run after time advance so labels show the new season (items 10, 11)
+  checkMilestones();
 
   resetAllocations();
   renderAll();
@@ -312,10 +423,8 @@ async function advanceSeason() {
     return;
   }
 
-  // Auto-save each season
   saveGame(state);
 
-  // Pick and show event for new season
   const ev = pickEvent(state, EVENTS_DATA, rng);
   if (ev) {
     state.pendingEvent = ev.id;
@@ -332,7 +441,6 @@ function startNewGame() {
   state = newGame(seed);
   rng   = new RNG(seed);
 
-  // Fire Circle is always present at start
   state.buildings = ['fire_circle'];
 
   addLog('A new people settle by the river. The land is vast and unknown. May they endure.', 'good');
@@ -343,7 +451,6 @@ function startNewGame() {
   $('event-box').classList.add('hidden');
   $('btn-advance').disabled = false;
 
-  // Show opening event
   const ev = pickEvent(state, EVENTS_DATA, rng);
   if (ev) {
     state.pendingEvent = ev.id;
@@ -359,6 +466,8 @@ function handleLoad() {
     return;
   }
   state = saved;
+  // Ensure recentEvents exists in older saves
+  if (!state.recentEvents) state.recentEvents = [];
   rng   = new RNG(0);
   rng.setState(state.rngState || state.seed);
 
@@ -390,7 +499,6 @@ async function init() {
 
   initMobileTabs();
 
-  // Wire buttons
   $('btn-new').addEventListener('click', () => {
     if (state && !state.gameOver) {
       if (!confirm('Start a new game? Unsaved progress will be lost.')) return;
@@ -424,12 +532,10 @@ async function init() {
     }
   });
 
-  // Allocation inputs
   for (const id of ALLOC_IDS) {
     $(`alloc-${id}`).addEventListener('input', updateAllocTotal);
   }
 
-  // Audio controls
   $('btn-mute').addEventListener('click', () => {
     const nowMuted = !isMuted();
     setMuted(nowMuted);
@@ -440,7 +546,6 @@ async function init() {
     setVolume(parseFloat(e.target.value));
   });
 
-  // Start or load
   if (hasSave()) {
     handleLoad();
   } else {

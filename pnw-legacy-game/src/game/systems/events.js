@@ -13,11 +13,16 @@ import { applyEffects } from '../state.js';
 export function pickEvent(state, eventDefs, rng) {
   const season = ['Spring', 'Summer', 'Fall', 'Winter'][state.seasonIndex];
 
+  const recent = state.recentEvents || [];
+
   const eligible = eventDefs.filter(ev => {
     // Season filter
     if (ev.seasonTags && ev.seasonTags.length > 0) {
       if (!ev.seasonTags.includes(season)) return false;
     }
+
+    // Cooldown: skip events seen in the last 4 seasons
+    if (recent.includes(ev.id)) return false;
 
     // Conditions
     const cond = ev.conditions || {};
@@ -43,7 +48,14 @@ export function pickEvent(state, eventDefs, rng) {
   if (eligible.length === 0) return null;
 
   const weighted = eligible.map(ev => ({ item: ev, weight: ev.weight || 1 }));
-  return rng.weighted(weighted);
+  const chosen = rng.weighted(weighted);
+
+  // Track this event; keep a rolling window of 4
+  if (chosen) {
+    state.recentEvents = [chosen.id, ...recent].slice(0, 4);
+  }
+
+  return chosen;
 }
 
 /**
