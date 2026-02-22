@@ -22,6 +22,26 @@ let rng   = null;
 // ── Helpers ──
 function $(id) { return document.getElementById(id); }
 
+// ── Mobile tab navigation ──
+const PANEL_IDS = ['panel-left', 'panel-center', 'panel-right'];
+
+function switchTab(targetId) {
+  PANEL_IDS.forEach(id => {
+    document.getElementById(id).classList.toggle('active', id === targetId);
+  });
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.target === targetId);
+  });
+}
+
+function initMobileTabs() {
+  // Set initial active panel
+  switchTab('panel-center');
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.target));
+  });
+}
+
 function showModal(title, body) {
   $('modal-title').textContent = title;
   $('modal-body').textContent  = body;
@@ -182,6 +202,9 @@ function showEvent(ev) {
 
   // Disable advance while event is pending
   $('btn-advance').disabled = true;
+
+  // On mobile, switch to the Chronicle panel so the event is visible
+  if (window.innerWidth <= 768) switchTab('panel-center');
 }
 
 function handleChoice(ev, choiceIdx) {
@@ -364,6 +387,8 @@ async function loadContent() {
 
 async function init() {
   await loadContent();
+
+  initMobileTabs();
 
   // Wire buttons
   $('btn-new').addEventListener('click', () => {
